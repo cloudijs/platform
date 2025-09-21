@@ -1,0 +1,31 @@
+name: Lint Terraform plan
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate Terraform configuration
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Terraform validate
+        uses: dflook/terraform-validate@v2
+        with:
+          path: terraform-config
+
+  fmt-check:
+    runs-on: ubuntu-latest
+    name: Check formatting of Terraform files
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Terraform fmt
+        uses: dflook/terraform-fmt-check@v2
+        with:
+          path: terraform-config
