@@ -19,4 +19,4 @@ jobs:
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
         with:
-          path: terraform-config
+          path: terraform

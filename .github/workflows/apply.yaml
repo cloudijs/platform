@@ -22,4 +22,4 @@ jobs:
       - name: Terraform apply
         uses: dflook/terraform-apply@v2
         with:
-          path: terraform-config
+          path: terraform
