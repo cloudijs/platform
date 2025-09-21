@@ -15,6 +15,9 @@ jobs:
     name: Apply Terraform plan
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_SECRET_KEY }}
+      AWS_CA_BUNDLE: ""
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +26,3 @@ jobs:
         uses: dflook/terraform-apply@v2
         with:
           path: terraform
-          backend_config: |
-            bucket=${{ secrets.TF_STATE_BUCKET_NAME }}
-            access_key=${{ secrets.TF_STATE_ACCESS_KEY }}
-            secret_key=${{ secrets.TF_STATE_SECRET_KEY }}
