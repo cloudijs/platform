@@ -8,7 +8,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    name: Validate Terraform configuration
+    name: Validate Terraform
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
 
   fmt-check:
     runs-on: ubuntu-latest
-    name: Check formatting of Terraform files
+    name: Check Terraform formatting
     steps:
       - name: Checkout
         uses: actions/checkout@v4

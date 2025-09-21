@@ -1,15 +1,15 @@
 # Hetzner secrets
 variable "hcloud_token" {
-    sensitive = true
+  sensitive = true
 }
 
 # Terraform state
 variable "state_bucket_name" {
-    sensitive = true
+  sensitive = true
 }
 variable "state_bucket_access_key" {
-    sensitive = true
+  sensitive = true
 }
 variable "state_bucket_secret_key" {
-    sensitive = true
+  sensitive = true
 }
