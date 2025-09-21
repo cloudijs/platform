@@ -20,7 +20,7 @@ jobs:
 
   fmt-check:
     runs-on: ubuntu-latest
-    name: Check Terraform formatting
+    name: Terraform formatting
     steps:
       - name: Checkout
         uses: actions/checkout@v4
