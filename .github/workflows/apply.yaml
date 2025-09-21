@@ -23,3 +23,7 @@ jobs:
         uses: dflook/terraform-apply@v2
         with:
           path: terraform
+          backend_config: |
+            bucket=${{ secrets.TF_STATE_BUCKET_NAME }}
+            access_key=${{ secrets.TF_STATE_ACCESS_KEY }}
+            secret_key=${{ secrets.TF_STATE_SECRET_KEY }}
