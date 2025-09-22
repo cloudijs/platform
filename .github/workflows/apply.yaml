@@ -1,0 +1,29 @@
+name: Apply Terraform plan
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    name: Apply Terraform plan
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_hcloud_token: ${{ secrets.TF_HCLOUD_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_SECRET_KEY }}
+      AWS_CA_BUNDLE: ""
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Terraform apply
+        uses: dflook/terraform-apply@v2
+        with:
+          path: terraform
