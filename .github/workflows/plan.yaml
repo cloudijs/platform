@@ -22,13 +22,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Packer
-        uses: hashicorp-contrib/setup-packer@v3
+      - uses: ConorMacBride/install-package@v1
         with:
-          packer-version: 1.15.0
-
-      - name: Setup Talosctl
-        run: curl -sL https://talos.dev/install | sh
+          brew: packer talosctl
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
