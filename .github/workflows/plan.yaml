@@ -22,14 +22,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Homebrew
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          echo >> ~/.bashrc
-          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"' >> ~/.bashrc
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-        env:
-          NONINTERACTIVE: 1
+      # - name: Setup Homebrew
+      #   run: |
+      #     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      #     echo >> ~/.bashrc
+      #     echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"' >> ~/.bashrc
+      #     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+      #   env:
+      #     NONINTERACTIVE: 1
 
       - name: Install Packer
         run: |
@@ -40,6 +40,11 @@ jobs:
 
       - name: Install Talosctl
         run: curl -sL https://talos.dev/install | sh
+
+      - name: Test
+        run: |
+          whereis packer
+          whereis talosctl
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
