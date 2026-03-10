@@ -37,7 +37,7 @@ jobs:
           /home/linuxbrew/.linuxbrew/bin/brew install hashicorp/tap/packer
 
       - name: Install Talosctl
-        run: brew install siderolabs/tap/talosctl
+        run: /home/linuxbrew/.linuxbrew/bin/brew install siderolabs/tap/talosctl
 
       - name: Terraform apply
         uses: dflook/terraform-apply@v2
