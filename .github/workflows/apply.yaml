@@ -1,0 +1,51 @@
+name: Apply Terraform plan
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    name: Apply Terraform plan
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TF_VAR_hcloud_token: ${{ secrets.TF_HCLOUD_TOKEN }}
+      STATE_BUCKET_NAME: ${{ secrets.TF_STATE_BUCKET_NAME }}
+      STATE_BUCKET_KEY: ${{ secrets.TF_STATE_BUCKET_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_SECRET_KEY }}
+      AWS_CA_BUNDLE: ""
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Homebrew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo >> ~/.bashrc
+          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"' >> ~/.bashrc
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+        env:
+          NONINTERACTIVE: 1
+
+      - name: Install Packer
+        run: |
+          sudo apt update
+          sudo apt install packer
+          packer
+          locate packer
+
+      - name: Install Talosctl
+        run: /home/linuxbrew/.linuxbrew/bin/brew install siderolabs/tap/talosctl
+
+      - name: Terraform apply
+        uses: dflook/terraform-apply@v2
+        with:
+          path: infra
+          backend_config: bucket=${{ env.STATE_BUCKET_NAME }} key=${{ env.STATE_BUCKET_KEY }}
