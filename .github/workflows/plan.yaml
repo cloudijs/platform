@@ -33,8 +33,8 @@ jobs:
 
       - name: Install Packer
         run: |
-          apt update
-          apt install packer
+          sudo apt update
+          sudo apt install packer
 
       - name: Install Talosctl
         run: /home/linuxbrew/.linuxbrew/bin/brew install siderolabs/tap/talosctl
