@@ -16,6 +16,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       TF_VAR_hcloud_token: ${{ secrets.TF_HCLOUD_TOKEN }}
+      STATE_BUCKET_NAME: ${{ secrets.TF_STATE_BUCKET_NAME }}
+      STATE_BUCKET_KEY: ${{ secrets.TF_STATE_BUCKET_KEY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_ACCESS_KEY }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_SECRET_KEY }}
       AWS_CA_BUNDLE: ""
@@ -23,7 +25,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Packer
+        uses: hashicorp-contrib/setup-packer@v3
+        with:
+          packer-version: 1.15.0
+
+      - name: Setup Talosctl
+        run: brew install siderolabs/tap/sidero-tools
+
       - name: Terraform apply
         uses: dflook/terraform-apply@v2
         with:
           path: terraform
+          backend_config: bucket=${{ env.STATE_BUCKET_NAME }} key=${{ env.STATE_BUCKET_KEY }}

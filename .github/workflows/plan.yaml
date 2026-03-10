@@ -22,6 +22,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Packer
+        uses: hashicorp-contrib/setup-packer@v3
+        with:
+          packer-version: 1.15.0
+
+      - name: Setup Talosctl
+        run: brew install siderolabs/tap/sidero-tools
+
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
         with:
