@@ -28,7 +28,7 @@ jobs:
           packer-version: 1.15.0
 
       - name: Setup Talosctl
-        run: brew install siderolabs/tap/sidero-tools
+        run: curl -sL https://talos.dev/install | sh
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
