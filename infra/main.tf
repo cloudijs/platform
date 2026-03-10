@@ -30,7 +30,7 @@ module "kubernetes" {
 # Setup Cloudijs System
 module "cloudijs-system" {
   depends_on = [module.kubernetes]
-  source = "./modules/cloudijs-system"
+  source     = "./modules/cloudijs-system"
 
   namespace       = var.system_namespace
   repository_url  = var.repository_url
