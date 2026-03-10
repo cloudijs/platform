@@ -25,9 +25,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: ConorMacBride/install-package@v1
+      - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          brew: packer talosctl
+          packages: packer talosctl
+          version: 1.6
 
       - name: Terraform apply
         uses: dflook/terraform-apply@v2
