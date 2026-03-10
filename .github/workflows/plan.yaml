@@ -47,6 +47,7 @@ jobs:
           echo $?
           command -v talosctl >/dev/null
           echo $?
+        shell: sh
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
