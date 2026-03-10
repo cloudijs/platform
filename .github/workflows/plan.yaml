@@ -31,38 +31,28 @@ jobs:
       #   env:
       #     NONINTERACTIVE: 1
 
-      - name: Install Packer
-        run: |
-          sudo wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-          sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt update
-          sudo apt install packer
+      # - name: Install Packer
+      #   run: |
+      #     sudo wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+      #     sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+      #     sudo apt update
+      #     sudo apt install packer
 
-      - name: Install Talosctl
-        run: curl -sL https://talos.dev/install | sh
-
-      - name: Test
-        shell: sh
-        run: |
-          set -eu
-          missing=0
-          if ! command -v packer >/dev/null 2>&1; then
-              printf '\n%s' ' - packer is not installed or not in PATH. Install it at https://developer.hashicorp.com/packer/install' >&2
-              missing=1
-          fi
-          if ! command -v jq >/dev/null 2>&1; then
-              printf '\n%s' ' - jq is not installed or not in PATH. Install it at https://jqlang.org/download/' >&2
-              missing=1
-          fi
-          if ! command -v talosctl >/dev/null 2>&1; then
-              printf '\n%s' ' - talosctl is not installed or not in PATH. Install it at https://www.talos.dev/latest/talos-guides/install/talosctl' >&2
-              missing=1
-          fi
-          printf '%s' '{}'
-          exit "$missing"
+      # - name: Install Talosctl
+      #   run: curl -sL https://talos.dev/install | sh
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
         with:
           path: infra
           backend_config: bucket=${{ env.STATE_BUCKET_NAME }} key=${{ env.STATE_BUCKET_KEY }}
+        env:
+          TERRAFORM_PRE_RUN: |
+            # Install latest Packer
+            sudo wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+            sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+            sudo apt update
+            sudo apt install packer
+  
+            # Install latest Talosctl
+            curl -sL https://talos.dev/install | sh
