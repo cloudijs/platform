@@ -43,8 +43,10 @@ jobs:
 
       - name: Test
         run: |
-          whereis packer
-          whereis talosctl
+          command -v packer >/dev/null
+          echo $?
+          command -v talosctl >/dev/null
+          echo $?
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
