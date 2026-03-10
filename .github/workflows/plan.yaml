@@ -33,8 +33,8 @@ jobs:
 
       - name: Install Packer
         run: |
-          /home/linuxbrew/.linuxbrew/bin/brew tap hashicorp/tap
-          /home/linuxbrew/.linuxbrew/bin/brew install hashicorp/tap/packer
+          apt update
+          apt install packer
 
       - name: Install Talosctl
         run: /home/linuxbrew/.linuxbrew/bin/brew install siderolabs/tap/talosctl

@@ -36,8 +36,8 @@ jobs:
 
       - name: Install Packer
         run: |
-          /home/linuxbrew/.linuxbrew/bin/brew tap hashicorp/tap
-          /home/linuxbrew/.linuxbrew/bin/brew install hashicorp/tap/packer
+          apt update
+          apt install packer
 
       - name: Install Talosctl
         run: /home/linuxbrew/.linuxbrew/bin/brew install siderolabs/tap/talosctl
@@ -45,5 +45,5 @@ jobs:
       - name: Terraform apply
         uses: dflook/terraform-apply@v2
         with:
-          path: terraform
+          path: infra
           backend_config: bucket=${{ env.STATE_BUCKET_NAME }} key=${{ env.STATE_BUCKET_KEY }}
