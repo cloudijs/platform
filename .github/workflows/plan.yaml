@@ -39,7 +39,7 @@ jobs:
           sudo apt install packer
 
       - name: Install Talosctl
-        run: /home/linuxbrew/.linuxbrew/bin/brew install siderolabs/tap/talosctl
+        run: curl -sL https://talos.dev/install | sh
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
