@@ -1,0 +1,57 @@
+---
+version: "3"
+
+dotenv:
+  - .env
+  - ../.env
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list-all
+
+  create:
+    desc: Create all resources
+    dir: infra/
+    cmds:
+      - tofu init -backend-config="bucket=${STATE_BUCKET_NAME}" -backend-config="key=${STATE_BUCKET_KEY}" -upgrade
+      - tofu apply -auto-approve
+    env:
+      AWS_ACCESS_KEY_ID:
+        sh: echo "${STATE_BUCKET_ACCESS_KEY}"
+      AWS_SECRET_ACCESS_KEY:
+        sh: echo "${STATE_BUCKET_SECRET_KEY}"
+      TF_VAR_hcloud_token:
+        sh: echo "${HCLOUD_TOKEN}"
+
+  delete:
+    desc: Destroy all resources
+    dir: infra/
+    cmds:
+      - cmd: tofu state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
+        ignore_error: true
+      - cmd: tofu state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
+        ignore_error: true
+      - cmd: tofu state rm 'module.kubernetes.talos_machine_secrets.this'
+        ignore_error: true
+      - cmd: tofu destroy -auto-approve
+      - cmd: rm -rf terraform terraform.lock.hcl ../.kubeconfig ../.kubeconfig.bak ../.talosconfig ../.talosconfig.bak
+    env:
+      AWS_ACCESS_KEY_ID:
+        sh: echo "${STATE_BUCKET_ACCESS_KEY}"
+      AWS_SECRET_ACCESS_KEY:
+        sh: echo "${STATE_BUCKET_SECRET_KEY}"
+      TF_VAR_hcloud_token:
+        sh: echo "${HCLOUD_TOKEN}"
+
+  validate:
+    desc: Run syntax and linting checks
+    cmds:
+      - cmd: tflint --chdir infra/
+
+  recreate:
+    desc: Recreate all resources
+    cmds:
+      - task: delete
+      - task: create

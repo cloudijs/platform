@@ -7,5 +7,9 @@ terraform.tfvars
 *.auto.tfvars
 
 # secrets
-kubeconfig
-talosconfig
+.kubeconfig
+.kubeconfig.bak
+.talosconfig
+.talosconfig.bak
+.env
+.environment
