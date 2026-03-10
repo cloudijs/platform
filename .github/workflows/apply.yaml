@@ -25,10 +25,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: packer talosctl
-          version: 1.6
+      - name: Setup Homebrew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        env:
+          NONINTERACTIVE: 1
+
+      - name: Install Packer
+        run: |
+          /home/linuxbrew/.linuxbrew/bin/brew tap hashicorp/tap
+          /home/linuxbrew/.linuxbrew/bin/brew install hashicorp/tap/packer
+
+      - name: Install Talosctl
+        run: brew install siderolabs/tap/talosctl
 
       - name: Terraform apply
         uses: dflook/terraform-apply@v2
