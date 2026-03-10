@@ -42,12 +42,24 @@ jobs:
         run: curl -sL https://talos.dev/install | sh
 
       - name: Test
-        run: |
-          command -v packer >/dev/null
-          echo $?
-          command -v talosctl >/dev/null
-          echo $?
         shell: sh
+        run: |
+          set -eu
+          missing=0
+          if ! command -v packer >/dev/null 2>&1; then
+              printf '\n%s' ' - packer is not installed or not in PATH. Install it at https://developer.hashicorp.com/packer/install' >&2
+              missing=1
+          fi
+          if ! command -v jq >/dev/null 2>&1; then
+              printf '\n%s' ' - jq is not installed or not in PATH. Install it at https://jqlang.org/download/' >&2
+              missing=1
+          fi
+          if ! command -v talosctl >/dev/null 2>&1; then
+              printf '\n%s' ' - talosctl is not installed or not in PATH. Install it at https://www.talos.dev/latest/talos-guides/install/talosctl' >&2
+              missing=1
+          fi
+          printf '%s' '{}'
+          exit "$missing"
 
       - name: Terraform plan
         uses: dflook/terraform-plan@v2
