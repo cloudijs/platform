@@ -13,6 +13,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       TF_VAR_hcloud_token: ${{ secrets.TF_HCLOUD_TOKEN }}
+      STATE_BUCKET_NAME: ${{ secrets.TF_STATE_BUCKET_NAME }}
+      STATE_BUCKET_KEY: ${{ secrets.TF_STATE_BUCKET_KEY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_ACCESS_KEY }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_SECRET_KEY }}
       AWS_CA_BUNDLE: ""
@@ -24,3 +26,4 @@ jobs:
         uses: dflook/terraform-plan@v2
         with:
           path: infra
+          backend_config: bucket=${{ env.STATE_BUCKET_NAME }} key=${{ env.STATE_BUCKET_KEY }}
