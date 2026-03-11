@@ -1,6 +1,9 @@
 name: Create Terraform plan
 
-on: [pull_request]
+on:
+  pull_request:
+    paths:
+      - 'infra/**'
 
 permissions:
   contents: read
