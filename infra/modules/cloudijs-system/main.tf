@@ -3,6 +3,13 @@ resource "kubernetes_namespace_v1" "platform_system" {
   metadata {
     name = var.namespace
   }
+
+  lifecycle {
+    ignore_changes = [
+      metadata[0].annotations,
+      metadata[0].labels
+    ]
+  }
 }
 
 # Deploy and configure Flux Operator
