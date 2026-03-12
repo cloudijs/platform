@@ -19,6 +19,9 @@ module "kubernetes" {
   cert_manager_enabled       = true
   cilium_gateway_api_enabled = true
 
+  # Disable scheduling on control plane nodes
+  cluster_allow_scheduling_on_control_planes = false
+
   control_plane_nodepools = [
     { name = "control", type = "cx23", location = "fsn1", count = 1 }
   ]
