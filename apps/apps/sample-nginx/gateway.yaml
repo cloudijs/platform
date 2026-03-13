@@ -6,7 +6,7 @@ metadata:
 spec:
   parentRefs:
     - name: shared-gateway-http
-      namespace: cloud-system
+      namespace: cloudijs-system
   hostnames:
     - test.cloudijs.nl
   rules:
@@ -17,3 +17,8 @@ spec:
       backendRefs:
         - name: sample-nginx
           port: 80
+  tls:
+    certificateRefs:
+      - name: test-cloudijs-nl-tls
+        kind: Secret
+        group: ""

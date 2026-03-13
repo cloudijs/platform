@@ -6,3 +6,4 @@ resources:
   - deployment.yaml
   - service.yaml
   - gateway.yaml
+  - certificate.yaml
