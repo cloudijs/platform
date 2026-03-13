@@ -37,8 +37,6 @@ metadata:
 spec:
   parentRefs:
     - name: sample-nginx-gateway
-  hostnames:
-    - test.cloudijs.nl
   rules:
     - matches:
         - path:
