@@ -7,6 +7,11 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-http
 spec:
   gatewayClassName: cilium
+  infrastructure:
+    annotations:
+      load-balancer.hetzner.cloud/name: "cilium-gateway-sample-nginx"
+      load-balancer.hetzner.cloud/location: "nbg1"
+      load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
   listeners:
     - name: http
       hostname: test.cloudijs.nl
