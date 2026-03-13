@@ -1,12 +1,42 @@
 apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: sample-nginx-gateway
+  namespace: apps
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-http
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - name: http
+      hostname: test.cloudijs.nl
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      hostname: test.cloudijs.nl
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: test-cloudijs-nl-tls
+            kind: Secret
+            group: ""
+      allowedRoutes:
+        namespaces:
+          from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: sample-nginx
   namespace: apps
 spec:
   parentRefs:
-    - name: shared-gateway-http
-      namespace: cloudijs-system
+    - name: sample-nginx-gateway
   hostnames:
     - test.cloudijs.nl
   rules:
@@ -17,8 +47,3 @@ spec:
       backendRefs:
         - name: sample-nginx
           port: 80
-  tls:
-    certificateRefs:
-      - name: test-cloudijs-nl-tls
-        kind: Secret
-        group: ""
