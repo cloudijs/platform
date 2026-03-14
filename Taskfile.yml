@@ -13,7 +13,7 @@ tasks:
 
   create:
     desc: Create all resources
-    dir: infra/
+    dir: infrastructure/
     cmds:
       - tofu init -backend-config="bucket=${STATE_BUCKET_NAME}" -backend-config="key=${STATE_BUCKET_KEY}" -upgrade
       - tofu apply -auto-approve
@@ -27,7 +27,7 @@ tasks:
 
   delete:
     desc: Destroy all resources
-    dir: infra/
+    dir: infrastructure/
     cmds:
       - cmd: tofu state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
         ignore_error: true
@@ -48,7 +48,7 @@ tasks:
   validate:
     desc: Run syntax and linting checks
     cmds:
-      - cmd: tflint --chdir infra/
+      - cmd: tflint --chdir infrastructure/
 
   recreate:
     desc: Recreate all resources

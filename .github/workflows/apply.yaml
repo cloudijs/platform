@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'infra/**'
+      - 'infrastructure/**'
 
 permissions:
   contents: read
@@ -30,7 +30,7 @@ jobs:
       - name: Terraform apply
         uses: dflook/terraform-apply@v2
         with:
-          path: infra
+          path: infrastructure
           backend_config: bucket=${{ env.STATE_BUCKET_NAME }} key=${{ env.STATE_BUCKET_KEY }}
         env:
           TERRAFORM_PRE_RUN: |
