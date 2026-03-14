@@ -4,7 +4,7 @@ metadata:
   name: sample-nginx-gateway
   namespace: apps
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-http
+    cert-manager.io/issuer: sample-nginx-issuer
 spec:
   gatewayClassName: cilium
   infrastructure:
