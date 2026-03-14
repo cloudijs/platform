@@ -18,6 +18,16 @@ resource "helm_release" "cert_manager" {
   namespace  = "cert-manager"
 
   chart      = "${path.module}/charts/cert-manager"
+  force_update = true
+}
+
+# Configure Shared Gateway
+resource "helm_release" "shared_gateway" {
+  name       = "shared-gateway"
+  namespace  = "cloudijs-system"
+
+  chart      = "${path.module}/charts/gateway"
+  force_update = true
 }
 
 # Deploy and configure Flux Operator

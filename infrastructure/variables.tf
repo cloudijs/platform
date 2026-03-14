@@ -30,6 +30,6 @@ variable "repository_ref" {
   type    = string
 }
 variable "repository_path" {
-  default = "apps"
+  default = "services"
   type    = string
 }
