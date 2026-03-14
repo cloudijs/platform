@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pocket-id
-  namespace: cloud-system
+  namespace: cloudijs-system
   labels:
     app: pocket-id
 spec:

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pocket-id-data
-  namespace: cloud-system
+  namespace: cloudijs-system
 spec:
   accessModes:
     - ReadWriteOnce
