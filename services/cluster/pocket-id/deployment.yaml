@@ -19,6 +19,14 @@ spec:
       containers:
         - name: pocket-id
           image: ghcr.io/pocket-id/pocket-id:v2
+          env:
+            - name: APP_URL
+              value: https://auth.cloudijs.nl
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pocket-id-secrets
+                  key: encryption-key
           ports:
             - containerPort: 1411
           volumeMounts:
