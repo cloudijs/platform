@@ -1,40 +1,4 @@
 apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: sample-nginx-gateway
-  namespace: apps
-  annotations:
-    cert-manager.io/issuer: sample-nginx-issuer
-spec:
-  gatewayClassName: cilium
-  infrastructure:
-    annotations:
-      load-balancer.hetzner.cloud/name: "platform-gateway"
-      load-balancer.hetzner.cloud/location: "nbg1"
-      load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
-  listeners:
-    - name: http
-      hostname: test.cloudijs.nl
-      port: 80
-      protocol: HTTP
-      allowedRoutes:
-        namespaces:
-          from: Same
-    - name: https
-      hostname: test.cloudijs.nl
-      port: 443
-      protocol: HTTPS
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: test-cloudijs-nl-tls
-            kind: Secret
-            group: ""
-      allowedRoutes:
-        namespaces:
-          from: Same
----
-apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: sample-nginx
@@ -42,6 +6,7 @@ metadata:
 spec:
   parentRefs:
     - name: sample-nginx-gateway
+      namespace: cloudijs-system
   rules:
     - matches:
         - path:
