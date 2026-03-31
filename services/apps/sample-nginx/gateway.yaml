@@ -7,6 +7,10 @@ spec:
   parentRefs:
     - name: sample-nginx-gateway
       namespace: cloudijs-system
+      sectionName: test-cloudijs-nl-http
+    - name: sample-nginx-gateway
+      namespace: cloudijs-system
+      sectionName: test-cloudijs-nl-https
   rules:
     - matches:
         - path:
