@@ -5,10 +5,10 @@ metadata:
   namespace: apps
 spec:
   parentRefs:
-    - name: sample-nginx-gateway
+    - name: shared-gateway-http
       namespace: cloudijs-system
       sectionName: test-cloudijs-nl-http
-    - name: sample-nginx-gateway
+    - name: shared-gateway-http
       namespace: cloudijs-system
       sectionName: test-cloudijs-nl-https
   rules:
