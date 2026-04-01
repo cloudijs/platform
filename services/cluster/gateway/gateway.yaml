@@ -25,15 +25,15 @@ spec:
       hostname: test.cloudijs.nl
       port: 443
       protocol: HTTPS
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
           - name: test-cloudijs-nl-tls
             kind: Secret
             group: ""
-      allowedRoutes:
-        namespaces:
-          from: All
 
     # auth.cloudijs.nl
     - name: http
@@ -47,12 +47,12 @@ spec:
       hostname: auth.cloudijs.nl
       port: 443
       protocol: HTTPS
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
           - name: auth-cloudijs-nl-tls
             kind: Secret
             group: ""
-      allowedRoutes:
-        namespaces:
-          from: All
