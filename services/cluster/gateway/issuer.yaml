@@ -14,4 +14,3 @@ spec:
             parentRefs:
               - name: shared-gateway-http
                 namespace: cloudijs-system
-                kind: Gateway
