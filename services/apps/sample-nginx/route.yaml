@@ -4,20 +4,12 @@ metadata:
   name: sample-nginx
   namespace: apps
 spec:
+  hostnames:
+    - test.cloudijs.nl
   parentRefs:
     - name: shared-gateway-http
       namespace: cloudijs-system
-      sectionName: test-cloudijs-nl-http
-    - name: shared-gateway-http
-      namespace: cloudijs-system
-      sectionName: test-cloudijs-nl-https
-  hostnames:
-    - test.cloudijs.nl
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
+    - backendRefs:
         - name: sample-nginx
           port: 80

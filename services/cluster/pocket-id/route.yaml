@@ -4,20 +4,12 @@ metadata:
   name: pocket-id
   namespace: cloudijs-system
 spec:
+  hostnames:
+    - auth.cloudijs.nl
   parentRefs:
     - name: shared-gateway-http
       namespace: cloudijs-system
-      sectionName: auth-cloudijs-nl-http
-    - name: shared-gateway-http
-      namespace: cloudijs-system
-      sectionName: auth-cloudijs-nl-https
-  hostnames:
-    - auth.cloudijs.nl
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
+    - backendRefs:
         - name: pocket-id
           port: 1411
