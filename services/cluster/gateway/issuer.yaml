@@ -1,13 +1,13 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: letsencrypt-http01
+  name: letsencrypt-http
   namespace: cloudijs-system
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-http01-key
+      name: letsencrypt-http-key
     solvers:
       - http01:
           gatewayHTTPRoute:
