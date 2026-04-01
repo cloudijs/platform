@@ -9,7 +9,7 @@ spec:
   gatewayClassName: cilium
   infrastructure:
     annotations:
-      load-balancer.hetzner.cloud/name: "platform-gateway"
+      load-balancer.hetzner.cloud/name: "platform-shared"
       load-balancer.hetzner.cloud/location: "nbg1"
       load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
   listeners:
