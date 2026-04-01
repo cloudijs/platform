@@ -11,6 +11,8 @@ spec:
     - name: shared-gateway-http
       namespace: cloudijs-system
       sectionName: test-cloudijs-nl-https
+  hostnames:
+    - test.cloudijs.nl
   rules:
     - matches:
         - path:
