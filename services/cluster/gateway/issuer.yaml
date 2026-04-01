@@ -15,3 +15,22 @@ spec:
               - name: shared-gateway-http
                 namespace: cloudijs-system
                 kind: Gateway
+
+
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-http01
+  namespace: cloudijs-system
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-http01-key
+    solvers:
+      - http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: shared-gateway-http
+                namespace: cloudijs-system
+                kind: Gateway
