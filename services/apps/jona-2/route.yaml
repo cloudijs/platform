@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: jona-2
+  namespace: jona-2
+spec:
+  hostnames:
+    - jona-2.cloudijs.nl
+  parentRefs:
+    - name: jona-test-gateway
+      namespace: jona-test
+  rules:
+    - backendRefs:
+        - name: jona-2
+          port: 80
