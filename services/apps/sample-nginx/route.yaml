@@ -8,8 +8,7 @@ spec:
     - test.cloudijs.nl
   parentRefs:
     - name: shared-gateway-http
-      #namespace: cloudijs-system
-      namespace: apps
+      namespace: cloudijs-system
   rules:
     - backendRefs:
         - name: sample-nginx
