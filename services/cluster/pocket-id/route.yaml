@@ -8,7 +8,7 @@ spec:
     - auth.cloudijs.nl
   parentRefs:
     - name: shared-gateway-http
-      namespace: cloudijs-system
+      namespace: apps
   rules:
     - backendRefs:
         - name: pocket-id
