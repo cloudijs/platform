@@ -30,13 +30,61 @@ module "kubernetes" {
   ]
 }
 
-# Setup Cloudijs System
-module "cloudijs-system" {
-  depends_on = [module.kubernetes]
-  source     = "./modules/cloudijs-system"
+# Create custom system namespace
+resource "kubernetes_namespace_v1" "platform_system" {
+  metadata {
+    name = var.system_namespace
+  }
 
-  namespace       = var.system_namespace
-  repository_url  = var.repository_url
-  repository_ref  = var.repository_ref
-  repository_path = var.repository_path
+  lifecycle {
+    ignore_changes = [
+      metadata[0].annotations,
+      metadata[0].labels
+    ]
+  }
+}
+
+# Deploy and configure Flux Operator
+resource "helm_release" "flux_operator" {
+  depends_on = [kubernetes_namespace_v1.platform_system]
+
+  name       = "flux-operator"
+  namespace  = var.system_namespace
+  repository = "oci://ghcr.io/controlplaneio-fluxcd/charts"
+  chart      = "flux-operator"
+
+  # set = [
+  #   {
+  #     name  = "web.networkPolicy.create"
+  #     value = false
+  #   }
+  # ]
+}
+
+resource "helm_release" "flux_instance" {
+  depends_on = [helm_release.flux_operator]
+
+  name       = "flux"
+  namespace  = var.system_namespace
+  repository = "oci://ghcr.io/controlplaneio-fluxcd/charts"
+  chart      = "flux-instance"
+
+  set = [
+    {
+      name  = "instance.sync.kind"
+      value = "GitRepository"
+    },
+    {
+      name  = "instance.sync.url"
+      value = var.repository_url
+    },
+    {
+      name  = "instance.sync.ref"
+      value = var.repository_ref
+    },
+    {
+      name  = "instance.sync.path"
+      value = var.repository_path
+    }
+  ]
 }
