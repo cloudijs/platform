@@ -12,9 +12,6 @@ spec:
       load-balancer.hetzner.cloud/name: "platform-shared"
       load-balancer.hetzner.cloud/location: "nbg1"
       load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
-  allowedListeners:
-    namespaces:
-      from: All
   listeners:
     # test.cloudijs.nl
     - name: test-cloudijs-nl-https
