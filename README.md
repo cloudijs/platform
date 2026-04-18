@@ -68,7 +68,7 @@ stringData:
 ```
 Then encrypt this secret file with the `kubeseal` command:
 ```sh
-kubeseal -f secret-unc.yaml -w secret.yaml --controller-namespace=cloudijs-systemal -f secret-unc.yaml -w secret.yaml --controller-namespace=cloudijs-system
+kubeseal -f secret-unc.yaml -w secret.yaml --controller-namespace=cloudijs-system -f secret-unc.yaml -w secret.yaml
 ```
 Don't forget to add the namespace in the original secret object before encrypting, this is
 required by Kubeseal to be included.
