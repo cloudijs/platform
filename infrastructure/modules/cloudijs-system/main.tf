@@ -12,24 +12,6 @@ resource "kubernetes_namespace_v1" "platform_system" {
   }
 }
 
-# Configure Cert Manager
-resource "helm_release" "cert_manager" {
-  name       = "cert-manager-config"
-  namespace  = "cert-manager"
-
-  chart      = "${path.module}/charts/cert-manager"
-  force_update = true
-}
-
-# Configure Shared Gateway
-resource "helm_release" "shared_gateway" {
-  name       = "shared-gateway"
-  namespace  = "cloudijs-system"
-
-  chart      = "${path.module}/charts/gateway"
-  force_update = true
-}
-
 # Deploy and configure Flux Operator
 resource "helm_release" "flux_operator" {
   depends_on = [kubernetes_namespace_v1.platform_system]
