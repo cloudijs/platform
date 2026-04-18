@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-nginx
+  name: cloudijs-test
   namespace: apps
   labels:
-    app: sample-nginx
+    app: cloudijs-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sample-nginx
+      app: cloudijs-test
   template:
     metadata:
       labels:
-        app: sample-nginx
+        app: cloudijs-test
     spec:
       containers:
         - name: nginx
