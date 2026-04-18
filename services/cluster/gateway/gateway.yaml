@@ -35,6 +35,28 @@ spec:
         namespaces:
           from: All
 
+    # test-2.cloudijs.nl
+    - name: test-2-cloudijs-nl-https
+      hostname: test-2.cloudijs.nl
+      port: 443
+      protocol: HTTPS
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: test-2-cloudijs-nl-tls
+            kind: Secret
+            group: ""
+    - name: test-2-cloudijs-nl-http
+      hostname: test-2.cloudijs.nl
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+
     # auth.cloudijs.nl
     - name: auth-cloudijs-nl-https
       hostname: auth.cloudijs.nl
