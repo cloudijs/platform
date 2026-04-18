@@ -51,6 +51,29 @@ flux suspend source git cloudijs-system -n cloudijs-system
 flux resume source git cloudijs-system -n cloudijs-system
 ```
 
+### Secrets
+
+Sensitive data like passwords, api keys etc. are stored in secrets. The tool
+[kubeseal](https://github.com/bitnami-labs/sealed-secrets) is used to be able to store secrets
+encrypted in the repository. For example:
+```sh
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-basic-auth
+  namespace: mynamespace
+stringData:
+  username: admin
+  password: t0p-Secret
+```
+Then encrypt this secret file with the `kubeseal` command:
+```sh
+kubeseal -f secret-unc.yaml -w secret.yaml --controller-namespace=cloudijs-systemal -f secret-unc.yaml -w secret.yaml --controller-namespace=cloudijs-system
+```
+Don't forget to add the namespace in the original secret object before encrypting, this is
+required by Kubeseal to be included.
+
+
 ## Sources
 
 * https://github.com/hcloud-k8s/terraform-hcloud-kubernetes
