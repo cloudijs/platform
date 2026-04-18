@@ -26,6 +26,10 @@ spec:
                 secretKeyRef:
                   name: pocket-id-secrets
                   key: encryption-key
+            - name: VERSION_CHECK_DISABLED
+              value: true
+            - name: ANALYTICS_DISABLED
+              value: true
           ports:
             - containerPort: 1411
           volumeMounts:
