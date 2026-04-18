@@ -12,6 +12,9 @@ spec:
       load-balancer.hetzner.cloud/name: "platform-shared"
       load-balancer.hetzner.cloud/location: "nbg1"
       load-balancer.hetzner.cloud/uses-proxyprotocol: "true"
+  allowedListeners:
+    namespaces:
+      from: All
   listeners:
     # test.cloudijs.nl
     - name: test-cloudijs-nl-https
@@ -29,28 +32,6 @@ spec:
             group: ""
     - name: test-cloudijs-nl-http
       hostname: test.cloudijs.nl
-      port: 80
-      protocol: HTTP
-      allowedRoutes:
-        namespaces:
-          from: All
-
-    # test-2.cloudijs.nl
-    - name: test-2-cloudijs-nl-https
-      hostname: test-2.cloudijs.nl
-      port: 443
-      protocol: HTTPS
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: test-2-cloudijs-nl-tls
-            kind: Secret
-            group: ""
-    - name: test-2-cloudijs-nl-http
-      hostname: test-2.cloudijs.nl
       port: 80
       protocol: HTTP
       allowedRoutes:
