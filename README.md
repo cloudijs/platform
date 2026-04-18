@@ -1,5 +1,5 @@
-[![Apply Status](https://github.com/cloudijs/website/actions/workflows/apply.yaml/badge.svg)](https://github.com/cloudijs/website/actions)
-[![Plan Status](https://github.com/cloudijs/website/actions/workflows/plan.yaml/badge.svg)](https://github.com/cloudijs/website/actions)
+[![Apply Status](https://github.com/cloudijs/platform/actions/workflows/apply.yaml/badge.svg)](https://github.com/cloudijs/platform/actions)
+[![Plan Status](https://github.com/cloudijs/platform/actions/workflows/plan.yaml/badge.svg)](https://github.com/cloudijs/platform/actions)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 # Cloudijs Platform
