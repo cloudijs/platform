@@ -1,11 +1,11 @@
-name: Lint Terraform plan
+name: Lint
 
 on:
   push:
     branches-ignore:
       - main
     paths:
-      - 'infrastructure/**'
+      - "infrastructure/**"
 
 jobs:
   validate:
