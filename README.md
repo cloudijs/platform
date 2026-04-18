@@ -39,6 +39,14 @@ task create
 ```
 Other available tasks like destroying the environment can be found using the `task` command.
 
+## Operations
+
+Suspend and resume reconcilation in Flux:
+```sh
+flux suspend source git cloudijs-system -n cloudijs-system
+flux resume source git cloudijs-system -n cloudijs-system
+```
+
 ## Sources
 
 * https://github.com/hcloud-k8s/terraform-hcloud-kubernetes
