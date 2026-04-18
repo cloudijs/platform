@@ -20,6 +20,13 @@ resource "helm_release" "flux_operator" {
   namespace  = var.namespace
   repository = "oci://ghcr.io/controlplaneio-fluxcd/charts"
   chart      = "flux-operator"
+
+  set = [
+    {
+      name  = "web.networkPolicy.create"
+      value = false
+    }
+  ]
 }
 
 resource "helm_release" "flux_instance" {
