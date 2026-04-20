@@ -20,6 +20,12 @@ variable "system_namespace" {
   type    = string
 }
 
+# App configuration
+variable "flux_domain" {
+  default = "flux.cloudijs.nl"
+  type    = string
+}
+
 # Git repository
 variable "repository_url" {
   default = "https://github.com/cloudijs/platform"

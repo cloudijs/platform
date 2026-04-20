@@ -53,11 +53,32 @@ resource "helm_release" "flux_operator" {
   repository = "oci://ghcr.io/controlplaneio-fluxcd/charts"
   chart      = "flux-operator"
 
-  set = [
-    {
-      name  = "web.networkPolicy.create"
-      value = false
-    }
+  values = [
+    yamlencode({
+      web = {
+        networkPolicy = {
+          create = false
+        }
+        httpRoute = {
+          enabled = true
+          parentRefs = [
+            {
+              name = "shared-gateway-http"
+              namespace = "cloudijs-system"
+            }
+          ]
+          hostnames = [ var.flux_domain ]
+        }
+      }
+      grafana = {
+        enabled = true
+        adminPassword = "change-me"
+        ingress = {
+          enabled = true
+          hosts   = ["grafana.example.com"]
+        }
+      }
+    })
   ]
 }
 
