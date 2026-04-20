@@ -56,7 +56,6 @@ resource "helm_release" "flux_operator" {
   set = [
     {
       name  = "web.networkPolicy.create"
-      type  = "auto"
       value = false
     }
   ]
