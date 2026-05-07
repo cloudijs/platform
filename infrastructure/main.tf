@@ -56,6 +56,18 @@ resource "helm_release" "flux_operator" {
   values = [
     yamlencode({
       web = {
+        config = {
+          baseURL = "https://${var.flux_domain}"
+          authentication = {
+            type = "OAuth2"
+            oauth2 = {
+              provider = "OIDC"
+              clientID = "0a956c2e-32f7-434c-827e-c7c5e4ec4b42"
+              clientSecret = "55ctAw8C3oIcXSFtEqGcn4jNCQD8Tha5"
+              issuerURL = var.oidc_url
+            }
+          }
+        }
         networkPolicy = {
           create = false
         }
@@ -64,7 +76,7 @@ resource "helm_release" "flux_operator" {
           parentRefs = [
             {
               name = "shared-gateway-http"
-              namespace = "cloudijs-system"
+              namespace = var.system_namespace
             }
           ]
           hostnames = [ var.flux_domain ]
@@ -90,22 +102,19 @@ resource "helm_release" "flux_instance" {
   repository = "oci://ghcr.io/controlplaneio-fluxcd/charts"
   chart      = "flux-instance"
 
-  set = [
-    {
-      name  = "instance.sync.kind"
-      value = "GitRepository"
-    },
-    {
-      name  = "instance.sync.url"
-      value = var.repository_url
-    },
-    {
-      name  = "instance.sync.ref"
-      value = var.repository_ref
-    },
-    {
-      name  = "instance.sync.path"
-      value = var.repository_path
-    }
+  values = [
+    yamlencode({
+      instance = {
+        cluster = {
+          networkPolicy = false
+        }
+        sync = {
+          kind = "GitRepository"
+          url  = var.repository_url
+          ref  = var.repository_ref
+          path = var.repository_path
+        }
+      }
+    })
   ]
 }

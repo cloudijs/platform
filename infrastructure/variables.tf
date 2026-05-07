@@ -25,6 +25,10 @@ variable "flux_domain" {
   default = "flux.cloudijs.nl"
   type    = string
 }
+variable "oidc_url" {
+  default = "https://auth.cloudijs.nl"
+  type    = string
+}
 
 # Git repository
 variable "repository_url" {
