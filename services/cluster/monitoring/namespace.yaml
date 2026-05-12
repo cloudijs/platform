@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   name: cloudijs-monitoring
   labels:
-    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/enforce-version: latest
