@@ -46,9 +46,18 @@ tasks:
         sh: echo "${HCLOUD_TOKEN}"
 
   validate:
-    desc: Run syntax and linting checks
+    desc: Run plan, syntax and linting checks
+    dir: infrastructure/
     cmds:
-      - cmd: tflint --chdir infrastructure/
+      - cmd: tofu plan
+      - cmd: tflint --chdir ./
+    env:
+      AWS_ACCESS_KEY_ID:
+        sh: echo "${STATE_BUCKET_ACCESS_KEY}"
+      AWS_SECRET_ACCESS_KEY:
+        sh: echo "${STATE_BUCKET_SECRET_KEY}"
+      TF_VAR_hcloud_token:
+        sh: echo "${HCLOUD_TOKEN}"
 
   recreate:
     desc: Recreate all resources
