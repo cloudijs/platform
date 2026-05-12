@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: cloudijs-monitoring
+spec:
+  interval: 5m
+  releaseName: prometheus
+  targetNamespace: cloudijs-monitoring
+  chart:
+    spec:
+      chart: prometheus
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: cloudijs-monitoring
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    prometheus-pushgateway:
+      enabled: false

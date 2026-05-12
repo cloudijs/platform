@@ -5,9 +5,6 @@ This file provides guidance to AI coding agents when working with code in this r
 ## Setup commands
 - Common commands should be defined in the Taskfile.
 - Run validation tests: `task validate`.
- 
-## Testing instructions
-- Find the CI plan in the .github/workflows folder.
 
 ## Code style
 - Use double quotes where possible.
