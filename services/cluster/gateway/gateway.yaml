@@ -42,7 +42,7 @@ spec:
       protocol: HTTPS
       allowedRoutes:
         namespaces:
-          from: All
+          from: cloudijs-system
       tls:
         mode: Terminate
         certificateRefs:
@@ -55,7 +55,7 @@ spec:
       protocol: HTTP
       allowedRoutes:
         namespaces:
-          from: All
+          from: cloudijs-system
 
     # flux.cloudijs.nl
     - name: flux-cloudijs-nl-https
@@ -64,7 +64,7 @@ spec:
       protocol: HTTPS
       allowedRoutes:
         namespaces:
-          from: All
+          from: cloudijs-system
       tls:
         mode: Terminate
         certificateRefs:
@@ -77,4 +77,26 @@ spec:
       protocol: HTTP
       allowedRoutes:
         namespaces:
-          from: All
+          from: cloudijs-system
+
+    # grafana.cloudijs.nl
+    - name: grafana-cloudijs-nl-https
+      hostname: grafana.cloudijs.nl
+      port: 443
+      protocol: HTTPS
+      allowedRoutes:
+        namespaces:
+          from: cloudijs-monitoring
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: grafana-cloudijs-nl-tls
+            kind: Secret
+            group: ""
+    - name: grafana-cloudijs-nl-http
+      hostname: grafana.cloudijs.nl
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: cloudijs-monitoring
